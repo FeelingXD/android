@@ -17,6 +17,10 @@
             android:textSize="15sp"
             android:layout_gravity="center_vertical"
             />
+        <RatingBar
+            android:id="@+id/rbar1"
+            android:layout_gravity="right"
+            style="?android:attr/ratingBarStyleIndicator"/>
 
     </TableRow>
 
