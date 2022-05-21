@@ -58,6 +58,18 @@
         android:onClick="jsonread2"
         android:text="jsonread2"
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="quest_list"
+        android:text="quest_list"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="quest_test"
+        android:text="quest_test"
+        />
 
 
 </LinearLayout>

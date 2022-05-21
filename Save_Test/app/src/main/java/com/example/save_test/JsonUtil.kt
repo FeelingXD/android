@@ -21,18 +21,21 @@ public final class JsonUtil {
             return ""
         }
 
-        fun toJson2(user: User, quest: ArrayList<Any>): String { //quest = guestjson
+        fun toJson2(user: User, questlist:ArrayList<Quest>): String { //quest = guestjson this fun not used if you need to use this fun you might test fun
             try {
                 val host_json = JSONObject()
                 host_json.put("name", user.name)
                 host_json.put("gender", user.gender)
                 host_json.put("attention", user.attention)
 
-                val quests = org.json.simple.JSONArray()
-                for(value in quest){
-                    quests.add(value)
+                val quests_ary = org.json.simple.JSONArray()
+                for(quests in questlist){
+                    var quest_json = JSONObject()
+                    quest_json.put("name",quests.name )
+                    quest_json.put("explain",quests.explain)
+                    quests_ary.add(quest_json)
                 }
-                host_json.put("quest",quests)
+                host_json.put("quests", quests_ary)
                 return host_json.toString()
             } catch (e: JSONException) {
                 e.printStackTrace()
@@ -40,14 +43,17 @@ public final class JsonUtil {
             return ""
         }
 
-        fun arylist2jsonary( questlist : ArrayList<String>): String?{
+        fun arylist2jsonary( questlist : ArrayList<Quest>):String {
             try {
-                val jsonAry: JSONArray
+                val jsonAry=JSONArray()
                 for (values in questlist) {
                     var obj = JSONObject()
-                    obj.put("fir", questlist.get(0))
-                    obj.put("sec",questlist.get(1))
+                    obj.put("name", values.name)
+                    obj.put("explain", values.explain)
+                    jsonAry.put(obj)
                 }
+                return jsonAry.toString()
+
             } catch (e: Exception) {
                 print(e.stackTrace)
             }

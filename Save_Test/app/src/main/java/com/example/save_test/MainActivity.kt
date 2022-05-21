@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONObject
 import java.io.*
+import java.util.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -15,13 +16,17 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this,text,duration).show()
     }
     val file ="data.txt"
+    val user = User("jimin", "male", "game")
     val testobj = arrayListOf<Any>("name","test")
+
+    val questobj = Quest("공부","test1")
+    val questobj2 = Quest("경험" ,"test2")
+    val questlist = arrayListOf<Quest>(questobj,questobj2)
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
     }
 
     fun save(v:View){   //save
@@ -74,7 +79,6 @@ class MainActivity : AppCompatActivity() {
         Log.d("jsonsave","used")
         val filename = "test.json"
 
-        val user = User("jimin", "male", "game")
         val output : FileOutputStream
 
         try {
@@ -116,6 +120,7 @@ class MainActivity : AppCompatActivity() {
             Log.d("읽기오류", e2.printStackTrace().toString())
         }
     }
+
     fun jsonsave2(v: View){
         val filename = "test2.json"
         val user = User("jimin", "male", "game")
@@ -123,7 +128,7 @@ class MainActivity : AppCompatActivity() {
 
         try {
             output = openFileOutput(filename ,Context.MODE_PRIVATE)
-            output.write(JsonUtil.toJson2(user,testobj ).toByteArray())
+            output.write(JsonUtil.toJson2(user,questlist).toByteArray())
             showToast("saved")
             output.close()
         }catch (e:Exception){
@@ -142,9 +147,11 @@ class MainActivity : AppCompatActivity() {
                 result += line
             }
             try {
-                Log.d("jsonread.try","used")
-                val info = JSONObject(result)
-                showToast(info.toString())
+//                Log.d("jsonread.try","used")
+//                val info = JSONObject(result)
+//                showToast(info.toString())
+
+                
             }catch (e:java.lang.Exception){
                 Log.d("에러",e.printStackTrace().toString())
             }
@@ -157,6 +164,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun quest_list(v:View){
+        val filename =getFilesDir().toString()+"/test2.json" // test file
+        // showToast(JsonUtil.toJson2(user,questlist))  quests_list array stubcode
+
+    }
+
+    fun quest_test(v:View){
+        showToast(questobj.explain.toString())
+    }
 
 
 
