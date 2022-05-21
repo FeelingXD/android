@@ -6,7 +6,9 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import org.json.JSONArray
 import org.json.JSONObject
+import org.json.simple.parser.JSONParser
 import java.io.*
 import java.util.ArrayList
 
@@ -147,11 +149,16 @@ class MainActivity : AppCompatActivity() {
                 result += line
             }
             try {
-//                Log.d("jsonread.try","used")
-//                val info = JSONObject(result)
-//                showToast(info.toString())
 
-                
+                Log.d("jsonread.try","used")
+                val info = JSONObject(result)
+                val tmp_quest = info.getString("quests")
+                val quests = JSONArray(tmp_quest)
+                val tmp_json = quests.getJSONObject(0)
+                showToast(tmp_json.getString("name"))
+
+
+
             }catch (e:java.lang.Exception){
                 Log.d("에러",e.printStackTrace().toString())
             }
