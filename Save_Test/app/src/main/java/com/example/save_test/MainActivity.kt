@@ -8,9 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONArray
 import org.json.JSONObject
-import org.json.simple.parser.JSONParser
 import java.io.*
-import java.util.ArrayList
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -124,13 +123,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun jsonsave2(v: View){
-        val filename = "test2.json"
+        val filename = "test3.json"
         val user = User("jimin", "male", "game")
         val output : FileOutputStream
 
         try {
             output = openFileOutput(filename ,Context.MODE_PRIVATE)
-            output.write(JsonUtil.toJson2(user,questlist).toByteArray())
+            output.write(JsonUtil.toJson2(user,questlist,this).toByteArray())
             showToast("saved")
             output.close()
         }catch (e:Exception){
@@ -141,6 +140,7 @@ class MainActivity : AppCompatActivity() {
 
         val filename =getFilesDir().toString()+"/test2.json"
         val file =File(filename)
+
         try {
             val reader = BufferedReader(FileReader(file))
             var result: String? = ""
@@ -156,7 +156,6 @@ class MainActivity : AppCompatActivity() {
                 val quests = JSONArray(tmp_quest)
                 val tmp_json = quests.getJSONObject(0)
                 showToast(tmp_json.getString("name"))
-
 
 
             }catch (e:java.lang.Exception){
@@ -178,9 +177,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun quest_test(v:View){
-        showToast(questobj.explain.toString())
+        showToast(JsonUtil.fileDir(this))
     }
-
 
 
 }
